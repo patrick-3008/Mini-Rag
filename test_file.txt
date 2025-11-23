@@ -1,0 +1,11 @@
+A RAG (Retrieval-Augmented Generation) system is an AI framework that combines a language model with an external knowledge base to provide more accurate, relevant, and up-to-date responses. It first retrieves relevant information from a data source, like documents or a database, and then uses that retrieved context to generate a grounded and context-aware answer, instead of relying solely on the model's internal training data. This makes the system more reliable and factually grounded, even for specific, proprietary, or rapidly changing information, without the need for expensive model retraining. 
+How RAG works
+Retrieval: When a user submits a query, the system first searches an external knowledge base (like internal documents, a database, or the web) for information related to the query.
+Augmentation: The relevant information found during the retrieval step is then combined with the original query to form an augmented prompt.
+Generation: The language model receives this augmented prompt and uses the provided context to generate a more accurate, relevant, and detailed response. 
+Key benefits
+Improved Accuracy and Relevance: Responses are grounded in specific, external data, reducing "hallucinations" or incorrect information.
+Contextual Awareness: The system can provide answers that are specific to a user's context or an organization's unique knowledge base.
+Up-to-Date Information: It can access and use the most current information without the need to retrain the entire model.
+Cost-Effective: It is a more efficient way to provide an LLM with specialized knowledge compared to the cost and time of fine-tuning or retraining the model from scratch.
+Auditability: The system can often provide citations or links to the sources it used, making the information verifiable. 
