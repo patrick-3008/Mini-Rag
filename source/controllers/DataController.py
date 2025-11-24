@@ -52,4 +52,4 @@ class DataController(BaseController):
                 random_key + "_" + cleaned_file_name
             )
 
-        return new_file_path
+        return new_file_path, random_key + "_" + cleaned_file_name
