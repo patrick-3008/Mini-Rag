@@ -10,7 +10,7 @@ class ProjectModel(BaseDataModel):
 
     async def create_project(self, project: Project):
 
-        result = await self.collection.insert_one(project.dict(by_alias=True, exclude_unset=True))
+        result = await self.collection.insert_one(project.dict(by_alias=True, exclude_unset=True)) # use alias for _id
         project._id = result.inserted_id
 
         return project
@@ -28,7 +28,7 @@ class ProjectModel(BaseDataModel):
 
             return project
         
-        return Project(**record)
+        return Project(**record) # convert dict to Project model
 
     async def get_all_projects(self, page: int=1, page_size: int=10):
 

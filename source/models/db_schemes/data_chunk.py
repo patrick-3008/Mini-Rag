@@ -3,8 +3,8 @@ from typing import Optional
 from bson.objectid import ObjectId
 
 class DataChunk(BaseModel):
-    _id: Optional[ObjectId]
-    chunk_text: str = Field(..., min_length=1)
+    id: Optional[ObjectId] = Field(None, alias="_id") # not required
+    chunk_text: str = Field(..., min_length=1) # "..." means that the variable is reqired
     chunk_metadata: dict
     chunk_order: int = Field(..., gt=0)
     chunk_project_id: ObjectId
