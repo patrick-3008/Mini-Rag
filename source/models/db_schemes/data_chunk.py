@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from typing import Optional
 from bson.objectid import ObjectId
 
-class Chunk(BaseModel):
+class DataChunk(BaseModel):
     _id: Optional[ObjectId]
     chunk_text: str = Field(..., min_length=1)
     chunk_metadata: dict
