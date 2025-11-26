@@ -11,3 +11,14 @@ class DataChunk(BaseModel):
     
     class Config:
         arbitrary_types_allowed = True
+
+    # static method to get indexes
+    @classmethod
+    def get_indexes(cls):
+        return [
+            {
+                "key": [ ("chunk_project_id", 1) ], # ascending index
+                "name": "chunk_project_id_index_1",
+                "unique": False
+            }
+        ]

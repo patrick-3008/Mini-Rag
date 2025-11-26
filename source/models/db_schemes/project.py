@@ -14,3 +14,16 @@ class Project(BaseModel):
     
     class Config:
         arbitrary_types_allowed = True
+
+    # static method to get indexes
+    @classmethod
+    def get_indexes(cls):
+
+        return [
+            {
+                "key": [ ("project_id", 1) ], # ascending index
+                "name": "project_id_index_1",
+                "unique": True
+            }
+        ]
+    
