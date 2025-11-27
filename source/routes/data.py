@@ -170,6 +170,7 @@ async def process_endpoint(request: Request, project_id: str, process_request: P
                 chunk_metadata=chunk.metadata,
                 chunk_order=i+1,
                 chunk_project_id=project.id,
+                chunk_asset_id=asset_id
             )
             for i, chunk in enumerate(file_chunks)
         ]
