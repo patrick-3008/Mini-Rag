@@ -26,6 +26,7 @@ class AssetModel(BaseDataModel):
                     name=index["name"],
                     unique=index["unique"]
                 )
+                
     async def create_asset(self, asset: Asset):
 
         result = await self.collection.insert_one(asset.dict(by_alias=True, exclude_unset=True))
