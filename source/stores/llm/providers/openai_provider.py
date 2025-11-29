@@ -9,16 +9,16 @@ class OpenAIProvider(LLMInterface):
             self,
             api_key: str,
             api_url: str = None,
-            max_input_char: int=1000,
-            max_output_tokens: int=1000,
-            temperature: float=0.1
+            default_max_input_char: int=1000,
+            default_max_output_tokens: int=1000,
+            default_temperature: float=0.1
         ):
 
         self.api_key = api_key
         self.api_url = api_url
-        self.max_input_char = max_input_char
-        self.max_output_tokens = max_output_tokens
-        self.temperature = temperature
+        self.default_max_input_char = default_max_input_char
+        self.default_max_output_tokens = default_max_output_tokens
+        self.default_temperature = default_temperature
 
         self.generation_model_id = None
         self.embedding_model_id = None
@@ -56,13 +56,46 @@ class OpenAIProvider(LLMInterface):
             return None
 
         return response.data[0].embedding
+    
+    def construct_prompt(self, prompt: str, role: str):
+        return {
+            "role": role,
+            "content": prompt
+        }
 
     def generate_text(
             self,
             prompt: str,
             chat_history: list=[],
-            max_output_tokens: int=None,
+            max_output_tokens: int = None,
             temperature: float = None
         ):
 
-        raise NotImplementedError("Method not implemented yet.")
+        if not self.client:
+            self.logger.error("OpenAI client was not set")
+            return None
+
+        if not self.generation_model_id:
+            self.logger.error("Generation model for OpenAI was not set")
+            return None
+
+        max_output_tokens = max_output_tokens if max_output_tokens else self.default_max_output_tokens
+        temperature = temperature if temperature else self.default_temperature
+
+        chat_history.append(
+            self.construct_prompt(prompt=prompt, role=OpenAIEnums.USER.value)
+        )
+
+        response = self.client.chat.completions.create(
+            model = self.generation_model_id,
+            messages = chat_history,
+            max_tokens = max_output_tokens,
+            temperature = temperature
+        )
+
+        if not response or not response.choices or len(response.choices) == 0 or not response.choices[0].message:
+            self.logger.error("Error while generating text with OpenAI")
+            return None
+
+        return response.choices[0].message["content"]
+    
