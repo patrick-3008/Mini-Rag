@@ -57,10 +57,13 @@ class OpenAIProvider(LLMInterface):
 
         return response.data[0].embedding
     
+    def process_text(self, text: str):
+        return text[:self.default_max_input_char].strip()
+    
     def construct_prompt(self, prompt: str, role: str):
         return {
             "role": role,
-            "content": prompt
+            "content": self.process_text(prompt)
         }
 
     def generate_text(
