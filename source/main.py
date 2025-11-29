@@ -6,7 +6,7 @@ from stores.llm.llm_provider_factory import LLMProviderFactory
 
 app = FastAPI()
 
-@app.on_event("startup")
+# @app.on_event("startup")
 async def startup_db_client():
     settings = get_settings()
 
@@ -24,9 +24,12 @@ async def startup_db_client():
     app.embedding_client.set_embedding_model(model_id=settings.EMBEDDING_MODEL_ID,
                                              embedding_size=settings.EMBEDDING_MODEL_SIZE)
 
-@app.on_event("shutdown")
+# @app.on_event("shutdown")
 async def shutdown_db_client():
     app.mongodb_connection.close()
 
 app.include_router(base.base_router) # include the base router
 app.include_router(data.data_router) # include the data router
+
+app.router.lifespan.on_startup.append(startup_db_client) # register startup event
+app.router.lifespan.on_shutdown.append(shutdown_db_client) # register shutdown event
