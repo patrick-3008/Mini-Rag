@@ -52,7 +52,7 @@ class CoHereProvider(LLMInterface):
             model = self.embedding_model_id,
             texts = [self.process_text(text)],
             input_type = input_type,
-            embedding_types=['float'],
+            embedding_types=['float']
         )
 
         if not response or not response.embeddings or not response.embeddings.float:
