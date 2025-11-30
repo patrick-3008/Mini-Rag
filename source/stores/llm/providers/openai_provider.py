@@ -26,6 +26,7 @@ class OpenAIProvider(LLMInterface):
 
         self.client = OpenAI(api_key=self.api_key, api_base=self.api_url)
 
+        self.enums = OpenAIEnums
         self.logger = logging.getLogger(__name__) # takes file name as logger name
 
 
