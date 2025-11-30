@@ -1,3 +1,3 @@
 from .project_db_schema import ProjectDBSchema
-from .data_chunk_db_schema import DataChunkDBSchema
+from .data_chunk_db_schema import DataChunkDBSchema, RetrievedDocumentDBSchema
 from .asset_db_schema import AssetDBSchema
