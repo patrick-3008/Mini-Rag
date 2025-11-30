@@ -24,6 +24,7 @@ class NLPController(BaseController):
         collection_name = self.create_collection_name(project_id = project.project_id)
         collection_info = self.vectordb_client.get_collection_info(collection_name = collection_name)
 
+        # fix json serializable issue
         return json.loads(
             json.dumps(collection_info, default = lambda x : x.__dict__)
         )

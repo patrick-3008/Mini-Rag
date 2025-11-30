@@ -1,6 +1,6 @@
 from .providers import QdrantDBProvider
 from .VectorDBEnums import VectorDBEnums
-from source.controllers.base_controller import BaseController
+from controllers.base_controller import BaseController
 
 class VectorDBProviderFactory:
 

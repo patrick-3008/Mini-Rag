@@ -7,7 +7,7 @@ from stores.vector_db.vector_db_provider_factory import VectorDBProviderFactory
 
 app = FastAPI()
 
-# @app.on_event("startup")
+@app.on_event("startup")
 async def startup_span():
     settings = get_settings()
 
@@ -33,7 +33,7 @@ async def startup_span():
     app.vectordb_client.connect()
 
 
-# @app.on_event("shutdown")
+@app.on_event("shutdown")
 async def shutdown_span():
     app.mongodb_connection.close()
     app.vectordb_client.disconnect()
@@ -43,5 +43,5 @@ app.include_router(base.base_router) # include the base router
 app.include_router(data.data_router) # include the data router
 app.include_router(nlp.nlp_router) # include the nlp router
 
-app.router.lifespan.on_startup.append(startup_span) # register startup event
-app.router.lifespan.on_shutdown.append(shutdown_span) # register shutdown event
+# app.router.lifespan.on_startup.append(startup_span) # register startup event
+# app.router.lifespan.on_shutdown.append(shutdown_span) # register shutdown event
