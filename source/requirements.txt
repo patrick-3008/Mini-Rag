@@ -9,6 +9,6 @@ PyMuPDF==1.24.3
 motor==3.4.0
 pymongo==4.5.0 # specific version to ensure compatibility with motor
 pydantic-mongo==2.3.0
-openai==1.35.13
+openai==2.1.0 # specific version to fix proxies error
 cohere==5.5.8
 qdrant-client==1.10.1
