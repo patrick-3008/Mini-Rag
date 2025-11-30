@@ -1,5 +1,5 @@
 from .base_data_model import BaseDataModel
-from .db_schemes import Project
+from .db_schemes import ProjectDBSchema
 from .enums.DataBaseEnum import DataBaseEnum
 
 class ProjectModel(BaseDataModel):
@@ -19,7 +19,7 @@ class ProjectModel(BaseDataModel):
         all_collections = await self.db_client.list_collection_names()
         if DataBaseEnum.COLLECTION_PROJECT_NAME.value not in all_collections:
             self.collection = self.db_client[DataBaseEnum.COLLECTION_PROJECT_NAME.value]
-            indexes = Project.get_indexes()
+            indexes = ProjectDBSchema.get_indexes()
             for index in indexes:
                 await self.collection.create_index(
                     index["key"],
@@ -27,7 +27,7 @@ class ProjectModel(BaseDataModel):
                     unique=index["unique"]
                 )
 
-    async def create_project(self, project: Project):
+    async def create_project(self, project: ProjectDBSchema):
 
         result = await self.collection.insert_one(project.dict(by_alias=True, exclude_unset=True)) # use alias for _id
         project.id = result.inserted_id
@@ -42,12 +42,12 @@ class ProjectModel(BaseDataModel):
 
         if record is None:
             # create new project
-            project = Project(project_id=project_id)
+            project = ProjectDBSchema(project_id=project_id)
             project = await self.create_project(project=project)
 
             return project
         
-        return Project(**record) # convert dict to Project model
+        return ProjectDBSchema(**record) # convert dict to Project model
 
     async def get_all_projects(self, page: int=1, page_size: int=10):
 
@@ -63,7 +63,7 @@ class ProjectModel(BaseDataModel):
         projects = []
         async for document in cursor:
             projects.append(
-                Project(**document)
+                ProjectDBSchema(**document)
             )
 
         return projects, total_pages

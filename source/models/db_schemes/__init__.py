@@ -1,3 +1,3 @@
-from .project import Project
-from .data_chunk import DataChunk
-from .asset import Asset
+from .project_db_schema import ProjectDBSchema
+from .data_chunk_db_schema import DataChunkDBSchema
+from .asset_db_schema import AssetDBSchema

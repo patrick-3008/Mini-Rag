@@ -2,7 +2,7 @@ from pydantic import BaseModel, Field
 from typing import Optional
 from bson.objectid import ObjectId
 
-class DataChunk(BaseModel):
+class DataChunkDBSchema(BaseModel):
     id: Optional[ObjectId] = Field(None, alias="_id") # not required
     chunk_text: str = Field(..., min_length=1) # "..." means that the variable is reqired
     chunk_metadata: dict

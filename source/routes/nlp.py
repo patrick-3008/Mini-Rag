@@ -1,6 +1,6 @@
 from fastapi import FastAPI, APIRouter, status, Request
 from fastapi.responses import JSONResponse
-from routes.schemes.nlp import PushRequest
+from source.routes.schemes.nlp_schema import PushRequest
 from models.project_model import ProjectModel
 from models.chunk_model import ChunkModel
 

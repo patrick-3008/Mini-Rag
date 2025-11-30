@@ -6,11 +6,11 @@ from models import ResponseSignal
 import aiofiles
 import logging
 import os
-from .schemes.data import ProcessRequest
+from .schemes.data_schema import ProcessRequest
 from models.project_model import ProjectModel
 from models.asset_model import AssetModel
 from models.chunk_model import ChunkModel
-from models.db_schemes import DataChunk, Asset
+from models.db_schemes import DataChunkDBSchema, AssetDBSchema
 from models.enums.AssetTypeEnum import AssetTypeEnum
 
 logger = logging.getLogger('uvicorn.error')
@@ -66,7 +66,7 @@ async def upload_data(
 
     # store assets into database
     asset_model = await AssetModel.create_instance(db_client=request.app.db_client)
-    asset = Asset(
+    asset = AssetDBSchema(
         asset_project_id=project.id,
         asset_type=AssetTypeEnum.FILE.value,
         asset_name=file_id,
@@ -165,7 +165,7 @@ async def process_endpoint(request: Request, project_id: str, process_request: P
             )
 
         file_chunks_records = [
-            DataChunk(
+            DataChunkDBSchema(
                 chunk_text=chunk.page_content,
                 chunk_metadata=chunk.metadata,
                 chunk_order=i+1,
