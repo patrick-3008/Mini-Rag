@@ -16,8 +16,8 @@ from models.enums.AssetTypeEnum import AssetTypeEnum
 logger = logging.getLogger('uvicorn.error')
 
 data_router = APIRouter(
-    prefix="/api/v1/data", # add prefix to all the urls
-    tags=["api_v1", "data"] # add tags for documentation
+    prefix = "/api/v1/data", # add prefix to all the urls
+    tags = ["api_v1", "data"] # add tags for documentation
 )
 
 

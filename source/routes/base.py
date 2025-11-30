@@ -3,8 +3,8 @@ import os
 from helpers.config import get_settings, Settings
 
 base_router = APIRouter(
-    prefix="/api/v1", # add prefix to all the urls
-    tags=["api_v1"] # add tags for documentation
+    prefix = "/api/v1", # add prefix to all the urls
+    tags = ["api_v1"] # add tags for documentation
 )
 
 # the function will not work if the settings are not found
